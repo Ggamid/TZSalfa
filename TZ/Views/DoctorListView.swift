@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  DoctorListView.swift
 //  TZ
 //
 //  Created by Gamıd Khalıdov on 06.01.2026.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct DoctorListView: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -20,5 +20,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    DoctorListView()
 }
