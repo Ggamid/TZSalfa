@@ -12,16 +12,15 @@ struct SearchBar: View {
     var placeholder: String = "Поиск"
 
     var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: "magnifyingglass")
-                .resizable()
-                .scaledToFit()
-                .frame(height: 22)
-                .foregroundColor(.appTextMuted)
+        content
+    }
+}
 
-            TextField(placeholder, text: $text)
-                .font(.system(size: 14, weight: .regular))
-                .foregroundColor(.appTextSecondary)
+private extension SearchBar {
+    var content: some View {
+        HStack(spacing: 12) {
+            icon
+            textField
         }
         .padding(.horizontal, 16)
         .frame(height: 40)
@@ -31,6 +30,20 @@ struct SearchBar: View {
                 .background(Color.white)
         )
         .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    var icon: some View {
+        Image(systemName: "magnifyingglass")
+            .resizable()
+            .scaledToFit()
+            .frame(height: 22)
+            .foregroundColor(.appTextMuted)
+    }
+
+    var textField: some View {
+        TextField(placeholder, text: $text)
+            .font(.system(size: 14, weight: .regular))
+            .foregroundColor(.appTextSecondary)
     }
 }
 

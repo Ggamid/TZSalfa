@@ -55,7 +55,7 @@ private extension FilterView {
             filterButtonLabel(for: category)
         }
         .buttonStyle(.plain)
-        .clipShape(RoundedCorners(for: category))
+        .clipShape(RoundedCornersShape(corners: roundedCorners(for: category)))
     }
     
     @ViewBuilder
@@ -94,32 +94,16 @@ private extension FilterView {
         let arrow = selected.isAscending ? "↑" : "↓"
         return "\(baseTitle) \(arrow)"
     }
-}
 
-// Helper to round only left/right edges for selected button
-private struct RoundedCorners: Shape {
-    let corners: UIRectCorner
-    let radius: CGFloat
-
-    init(for category: DoctorFilter.Category, radius: CGFloat = 10) {
+    func roundedCorners(for category: DoctorFilter.Category) -> UIRectCorner {
         switch category {
         case .price:
-            self.corners = [.topLeft, .bottomLeft]
+            return [.topLeft, .bottomLeft]
         case .rating:
-            self.corners = [.topRight, .bottomRight]
+            return [.topRight, .bottomRight]
         default:
-            self.corners = []
+            return []
         }
-        self.radius = radius
-    }
-
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(
-            roundedRect: rect,
-            byRoundingCorners: corners,
-            cornerRadii: CGSize(width: radius, height: radius)
-        )
-        return Path(path.cgPath)
     }
 }
 
