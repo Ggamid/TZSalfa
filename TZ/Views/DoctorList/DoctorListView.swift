@@ -12,16 +12,23 @@ struct DoctorListView: View {
     @StateObject var viewModel: DoctorListViewModel = DoctorListViewModel()
     
     var body: some View {
-        ScrollView {
-            ForEach(viewModel.doctors, id: \.id) { doctor in
-                DoctorListCellView(doctor: doctor)
+        VStack {
+            
+            FilterView(selected: $viewModel.filter)
+                .padding()
+            
+            ScrollView {
+                ForEach(viewModel.filteredList, id: \.id) { doctor in
+                    DoctorListCellView(doctor: doctor)
+                }
+            }
+            .padding(.horizontal)
+            .scrollIndicators(.hidden)
+            .onAppear {
+                viewModel.getDoctorList()
             }
         }
-        .padding(.horizontal)
         .background(Color.appBackground)
-        .onAppear {
-            viewModel.getDoctorList()
-        }
     }
 }
 
