@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct DoctorListView: View {
+    
+    @StateObject var viewModel: DoctorListViewModel = DoctorListViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ScrollView {
+            ForEach(viewModel.doctors, id: \.id) { doctor in
+                DoctorListCellView(doctor: doctor)
+            }
         }
-        .padding()
+        .padding(.horizontal)
+        .background(Color.appBackground)
+        .onAppear {
+            viewModel.getDoctorList()
+        }
     }
 }
 
