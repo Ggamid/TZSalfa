@@ -12,10 +12,13 @@ struct DoctorListView: View {
     @StateObject var viewModel: DoctorListViewModel = DoctorListViewModel()
     
     var body: some View {
-        VStack {
-            
-            FilterView(selected: $viewModel.filter)
-                .padding()
+        VStack(spacing: 10) {
+            Group {
+                SearchBar(text: $viewModel.searchText)
+                
+                FilterView(selected: $viewModel.filter)
+            }
+            .padding(.horizontal)
             
             ScrollView {
                 ForEach(viewModel.filteredList, id: \.id) { doctor in
