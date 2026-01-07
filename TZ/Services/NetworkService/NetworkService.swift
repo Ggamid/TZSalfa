@@ -18,6 +18,7 @@ class NetworkService: NetworkServiceProtocol {
         do {
             let data = try Data(contentsOf: url)
             let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
             let decodedData = try decoder.decode(T.self, from: data)
             return decodedData
         } catch {

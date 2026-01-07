@@ -40,4 +40,16 @@ struct Doctor: Decodable, Identifiable {
     let category: Int
     let categoryLabel: String?
     let isFavorite: Bool
+
+    var doctorFullName: String {
+        "\(firstName) \(patronymic ?? "") \(lastName)"
+    }
+    
+    var doctorSpecializations: String {
+        "\(specialization.map(\.name).joined(separator: ", "))"
+    }
+    
+    var minServicePrice: Int {
+        min(textChatPrice, videoChatPrice, homePrice, hospitalPrice)
+    }
 }
