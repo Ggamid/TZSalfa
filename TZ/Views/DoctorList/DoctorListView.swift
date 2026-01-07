@@ -21,6 +21,7 @@ struct DoctorListView: View {
                 ForEach(viewModel.filteredList, id: \.id) { doctor in
                     DoctorListCellView(doctor: doctor)
                 }
+                hiddenRect
             }
             .padding(.horizontal)
             .scrollIndicators(.hidden)
@@ -29,6 +30,12 @@ struct DoctorListView: View {
             }
         }
         .background(Color.appBackground)
+    }
+    
+    var hiddenRect: some View {
+        Rectangle()
+            .frame(height: 200)
+            .hidden()
     }
 }
 

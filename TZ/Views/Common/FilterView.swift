@@ -26,7 +26,7 @@ private extension FilterView {
                     )
             }
         }
-        .frame(height: 44)
+        .frame(height: 32)
         .background(
             background
         )
@@ -62,7 +62,7 @@ private extension FilterView {
     func filterButtonLabel(for category: DoctorFilter.Category) -> some View {
         let isSelected = selected.category == category
         Text(title(for: category))
-            .font(.system(size: 18, weight: .regular))
+            .font(.system(size: 14, weight: .regular))
             .foregroundColor(isSelected ? .white : .appTextSecondary)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
