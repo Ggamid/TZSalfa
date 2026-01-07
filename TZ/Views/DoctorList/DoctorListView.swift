@@ -12,7 +12,13 @@ struct DoctorListView: View {
     @StateObject var viewModel: DoctorListViewModel = DoctorListViewModel()
     
     var body: some View {
-        content
+        NavigationStack {
+            VStack(spacing: 0) {
+                NavBarView(title: "Педиатры", showBack: false)
+                content
+            }
+            .toolbar(.hidden)
+        }
     }
     
     var content: some View {
@@ -20,7 +26,6 @@ struct DoctorListView: View {
             header
             doctorsList
         }
-        .background(Color.appBackground)
     }
     
     var header: some View {
@@ -34,12 +39,17 @@ struct DoctorListView: View {
     var doctorsList: some View {
         ScrollView {
             ForEach(viewModel.filteredList, id: \.id) { doctor in
-                DoctorListCellView(doctor: doctor)
+                NavigationLink {
+                    DoctorDetailView(doctor: doctor)
+                } label: {
+                    DoctorListCellView(doctor: doctor)
+                }
             }
             hiddenRect
         }
         .padding(.horizontal)
         .scrollIndicators(.hidden)
+        .frame(maxHeight: .infinity)
         .onAppear {
             viewModel.getDoctorList()
         }
