@@ -52,4 +52,35 @@ struct Doctor: Decodable, Identifiable {
     var minServicePrice: Int {
         min(textChatPrice, videoChatPrice, homePrice, hospitalPrice)
     }
+    
+    var lastEducation: String {
+        guard let lastEdu = higherEducation.first else { return "Образования нет" }
+        return lastEdu.university
+    }
+    
+    var lastWorkExperience: String {
+        guard let lastWork = workExpirience.first else { return "Опыта работы нет" }
+        return "\(lastWork.organization)"
+    }
+    
+    var categoryDescription: String {
+        let label = categoryLabel?.lowercased() ?? ""
+        switch label {
+        case "высшая":
+            return "Врач высшей категории"
+        case "первая":
+            return "Врач первой категории"
+        case "вторая":
+            return "Врач второй категории"
+        case "нет":
+            return "Без категории"
+        default:
+            switch category {
+            case 3: return "Врач высшей категории"
+            case 2: return "Врач первой категории"
+            case 1: return "Врач второй категории"
+            default: return "Без категории"
+            }
+        }
+    }
 }
