@@ -9,18 +9,24 @@ import SwiftUI
 
 class DoctorListViewModel: ObservableObject {
     @Published var doctors: [Doctor] = []
-    @Published var filter: DoctorFilter = .price
+    @Published var filter: DoctorFilter = .priceAsc
     
     let networkService = NetworkService()
     
     var filteredList: [Doctor] {
         switch filter {
-        case .price:
+        case .priceAsc:
             return doctors.sorted { $0.minServicePrice < $1.minServicePrice }
-        case .experience:
+        case .priceDesc:
+            return doctors.sorted { $0.minServicePrice > $1.minServicePrice }
+        case .experienceAsc:
             return doctors.sorted { $0.seniority < $1.seniority }
-        case .rating:
+        case .experienceDesc:
+            return doctors.sorted { $0.seniority > $1.seniority }
+        case .ratingAsc:
             return doctors.sorted { $0.rank < $1.rank }
+        case .ratingDesc:
+            return doctors.sorted { $0.rank > $1.rank }
         }
     }
     

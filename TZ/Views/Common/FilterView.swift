@@ -18,15 +18,15 @@ struct FilterView: View {
 private extension FilterView {
     var content: some View {
         HStack(spacing: 0) {
-            ForEach(DoctorFilter.allCases, id: \.self) { filter in
-                filterButton(filter)
+            ForEach(DoctorFilter.Category.allCases, id: \.self) { category in
+                filterButton(category)
                     .overlay(
-                        divider(for: filter),
+                        divider(for: category),
                         alignment: .trailing
                     )
             }
         }
-        .frame(height: 32)
+        .frame(height: 44)
         .background(
             background
         )
@@ -42,39 +42,57 @@ private extension FilterView {
     }
 
     @ViewBuilder
-    func filterButton(_ filter: DoctorFilter) -> some View {
+    func filterButton(_ category: DoctorFilter.Category) -> some View {
         Button {
             withAnimation {
-                selected = filter                
+                if selected.category == category {
+                    selected = selected.toggled()
+                } else {
+                    selected = DoctorFilter.defaultFor(category)
+                }
             }
         } label: {
-            filterButtonLabel(by: filter)
+            filterButtonLabel(for: category)
         }
         .buttonStyle(.plain)
-        .clipShape(RoundedCorners(for: filter))
+        .clipShape(RoundedCorners(for: category))
     }
     
     @ViewBuilder
-    func filterButtonLabel(by filter: DoctorFilter) -> some View {
-        Text(filter.title)
+    func filterButtonLabel(for category: DoctorFilter.Category) -> some View {
+        let isSelected = selected.category == category
+        Text(title(for: category))
             .font(.system(size: 18, weight: .regular))
-            .foregroundColor(selected == filter ? .white : .appTextSecondary)
+            .foregroundColor(isSelected ? .white : .appTextSecondary)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
-                selected == filter
+                isSelected
                 ? Color.appPink
                 : Color.clear
             )
     }
 
     @ViewBuilder
-    func divider(for filter: DoctorFilter) -> some View {
-        if filter != DoctorFilter.allCases.last {
+    func divider(for category: DoctorFilter.Category) -> some View {
+        if category != DoctorFilter.Category.allCases.last {
             Rectangle()
                 .fill(Color.appCardBorder)
                 .frame(width: 1)
                 .padding(.vertical, 10)
         }
+    }
+
+    func title(for category: DoctorFilter.Category) -> String {
+        let baseTitle: String
+        switch category {
+        case .price: baseTitle = "По цене"
+        case .experience: baseTitle = "По стажу"
+        case .rating: baseTitle = "По рейтингу"
+        }
+
+        guard selected.category == category else { return baseTitle }
+        let arrow = selected.isAscending ? "↑" : "↓"
+        return "\(baseTitle) \(arrow)"
     }
 }
 
@@ -83,8 +101,8 @@ private struct RoundedCorners: Shape {
     let corners: UIRectCorner
     let radius: CGFloat
 
-    init(for filter: DoctorFilter, radius: CGFloat = 10) {
-        switch filter {
+    init(for category: DoctorFilter.Category, radius: CGFloat = 10) {
+        switch category {
         case .price:
             self.corners = [.topLeft, .bottomLeft]
         case .rating:
@@ -106,7 +124,7 @@ private struct RoundedCorners: Shape {
 }
 
 #Preview {
-    StatefulPreviewWrapper(DoctorFilter.price) { selection in
+    StatefulPreviewWrapper(DoctorFilter.priceAsc) { selection in
         FilterView(selected: selection)
             .padding()
             .background(Color.appBackground)
