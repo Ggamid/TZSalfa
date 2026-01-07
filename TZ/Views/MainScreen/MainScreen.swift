@@ -12,23 +12,19 @@ struct MainScreen: View {
     @State var appTab: AppTab = .home
     
     var body: some View {
-        ZStack {
-            VStack {
-                switch appTab {
-                case .home:
-                    DoctorListView()
-                        .padding(.bottom, 50)
-                case .calendar:
-                    EmptyView()
-                case .chat:
-                    EmptyView()
-                case .profile:
-                    EmptyView()
-                }
+        VStack(spacing: 0) {
+            switch appTab {
+            case .home:
+                DoctorListView()
+            case .calendar:
+                EmptyView()
+            case .chat:
+                EmptyView()
+            case .profile:
+                EmptyView()
             }
             
             TabBarView(selected: $appTab)
-                .frame(maxHeight: .infinity, alignment: .bottom)
         }
     }
 }
