@@ -17,8 +17,8 @@ struct RatingView: View {
     init(
         rating: Int,
         max: Int = 5,
-        filledColor: Color = Color(red: 1.0, green: 0.31, blue: 0.55),
-        emptyColor: Color = Color.gray.opacity(0.6),
+        filledColor: Color = Color.appStarFilled,
+        emptyColor: Color = Color.appStarEmpty,
         size: CGFloat = 16
     ) {
         self.rating = rating
