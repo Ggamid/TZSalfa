@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct PricesView: View {
-    let doctor: Doctor
+    @State var viewModel: PricesViewModel
     @Environment(\.dismiss) private var dismiss
+
+    init(doctor: Doctor) {
+        _viewModel = State(initialValue: PricesViewModel(doctor: doctor))
+    }
 
     var body: some View {
         mainContainer
@@ -17,13 +21,6 @@ struct PricesView: View {
 }
 
 private extension PricesView {
-    struct PriceItem: Identifiable {
-        let id = UUID()
-        let title: String
-        let subtitle: String
-        let value: Int
-    }
-
     var mainContainer: some View {
         VStack(spacing: 0) {
             navigationBar
@@ -36,7 +33,11 @@ private extension PricesView {
     }
 
     var navigationBar: some View {
-        NavBarView(title: "Стоимость услуг", showBack: true, backAction: { dismiss() })
+        NavBarView(
+            title: viewModel.navigationTitle,
+            showBack: true,
+            backAction: { dismiss() }
+        )
     }
 
     var content: some View {
@@ -47,50 +48,24 @@ private extension PricesView {
 
     var priceList: some View {
         VStack(alignment: .leading, spacing: 24) {
-            ForEach(priceItems) { item in
+            ForEach(viewModel.priceItems) { item in
                 PriceBlockView(item: item)
             }
         }
         .padding(.horizontal, 16)
         .padding(.top, 24)
     }
-
-    var priceItems: [PriceItem] {
-        [
-            PriceItem(
-                title: "Видеоконсультация",
-                subtitle: "30 мин",
-                value: doctor.videoChatPrice
-            ),
-            PriceItem(
-                title: "Чат с врачом",
-                subtitle: "30 мин",
-                value: doctor.textChatPrice
-            ),
-            PriceItem(
-                title: "Приём в клинике",
-                subtitle: "В клинике",
-                value: doctor.hospitalPrice
-            ),
-            PriceItem(
-                title: "Вызов на дом",
-                subtitle: "На дому",
-                value: doctor.homePrice
-            )
-        ]
-        .filter { $0.value > 0 }
-    }
 }
 
 private struct PriceBlockView: View {
-    let item: PricesView.PriceItem
+    let item: PricesViewModel.PriceItem
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             title
             PriceCardView(
                 leftText: item.subtitle,
-                rightText: "\(item.value) ₽",
+                rightText: item.formattedValue,
                 style: .row
             )
         }

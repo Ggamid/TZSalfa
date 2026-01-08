@@ -9,12 +9,20 @@ import SwiftUI
 
 struct DoctorDetailView: View {
     
-    let doctor: Doctor
+    @State var viewModel: DoctorDetailViewModel
     @Environment(\.dismiss) private var dismiss
     
+    init(doctor: Doctor) {
+        _viewModel = State(initialValue: DoctorDetailViewModel(doctor: doctor))
+    }
+
     var body: some View {
         VStack(spacing: 0) {
-            NavBarView(title: "Педиатр", showBack: true, backAction: { dismiss() })
+            NavBarView(
+                title: viewModel.navigationTitle,
+                showBack: true,
+                backAction: { dismiss() }
+            )
             content
         }
         .navigationBarBackButtonHidden(true)
@@ -46,9 +54,9 @@ private extension DoctorDetailView {
     
     var header: some View {
         HStack(alignment: .center, spacing: 12) {
-            RemoteAvatarView(urlString: doctor.avatar, size: 64)
+            RemoteAvatarView(urlString: viewModel.doctor.avatar, size: 64)
             
-            Text(doctor.doctorFullName)
+            Text(viewModel.fullName)
                 .font(.system(size: 20, weight: .semibold))
                 .foregroundColor(.appTextPrimary)
 
@@ -58,10 +66,9 @@ private extension DoctorDetailView {
     
     var infoRows: some View {
         VStack(alignment: .leading, spacing: 16) {
-            infoRow(icon: .appSeniority, text: "Опыт работы: \(doctor.seniority) лет")
-            infoRow(icon: .appDoctorCategory, text: doctor.categoryDescription)
-            infoRow(icon: .appEducation, text: doctor.lastEducation)
-            infoRow(icon: .appWork, text: doctor.lastWorkExperience)
+            ForEach(viewModel.infoRows) { row in
+                infoRow(icon: row.icon, text: row.text)
+            }
         }
     }
     
@@ -80,29 +87,25 @@ private extension DoctorDetailView {
     
     var priceCard: some View {
         NavigationLink {
-            PricesView(doctor: doctor)
+            PricesView(doctor: viewModel.doctor)
         } label: {
             PriceCardView(
                 leftText: "Стоимость услуг",
-                rightText: "от \(doctor.minServicePrice) ₽",
+                rightText: viewModel.priceSummary,
                 style: .summary
             )
         }
     }
     
     var descriptionSection: some View {
-        // swiftlint:disable line_length
-        Text("""
-Проводит диагностику и лечение терапевтических больных. Осуществляет расшифровку и снятие ЭКГ. Даёт рекомендации по диетологии. Доктор имеет опыт работы в России и зарубежом. Проводит консультации пациентов на английском языке.
-""")
-        // swiftlint:enable line_length
+        Text(viewModel.descriptionText)
         .font(.system(size: 16))
         .foregroundColor(.appTextPrimary)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     var actionButton: some View {
-        PrimaryButton(title: "Записаться") { }
+        PrimaryButton(title: viewModel.actionTitle) { }
             .padding(.top, 12)
     }
 }
