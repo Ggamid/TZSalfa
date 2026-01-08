@@ -11,7 +11,7 @@ import SwiftUI
 struct TZApp: App {
     var body: some Scene {
         WindowGroup {
-            DoctorListView()
+            MainScreen()
         }
     }
 }
