@@ -18,21 +18,11 @@ struct DoctorDetailView: View {
             content
         }
         .navigationBarBackButtonHidden(true)
-        .simultaneousGesture(edgeSwipeGesture)
+        .edgeSwipeDismiss()
     }
 }
 
 private extension DoctorDetailView {
-    var edgeSwipeGesture: some Gesture {
-        DragGesture(minimumDistance: 20, coordinateSpace: .local)
-            .onEnded { value in
-                guard value.startLocation.x < 24 else { return }
-                guard value.translation.width > 80 else { return }
-                guard abs(value.translation.height) < 40 else { return }
-                dismiss()
-            }
-    }
-
     var content: some View {
         VStack(spacing: 0) {
             doctorDescription
@@ -89,21 +79,10 @@ private extension DoctorDetailView {
     }
     
     var priceCard: some View {
-        HStack {
-            Text("Стоимость услуг")
-                .font(.system(size: 18, weight: .semibold))
-                .foregroundColor(.appTextPrimary)
-            Spacer()
-            Text("от \(doctor.minServicePrice) ₽")
-                .font(.system(size: 18, weight: .semibold))
-                .foregroundColor(.appTextPrimary)
-        }
-        .padding()
-        .frame(maxWidth: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.appCardBorder, lineWidth: 1)
-                .background(Color.appCardBackground)
+        PriceCardView(
+            leftText: "Стоимость услуг",
+            rightText: "от \(doctor.minServicePrice) ₽",
+            style: .summary
         )
     }
     
