@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TabBarView: View {
     @Binding var selected: AppTab
-    var chatBadge: Int? = nil
+    var chatBadge: Int?
 
     var body: some View {
         content

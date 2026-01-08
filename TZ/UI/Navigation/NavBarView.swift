@@ -10,7 +10,7 @@ import SwiftUI
 struct NavBarView: View {
     var title: String
     var showBack: Bool = false
-    var backAction: (() -> Void)? = nil
+    var backAction: (() -> Void)?
 
     var body: some View {
         HStack {
@@ -34,7 +34,7 @@ struct NavBarView: View {
 
 private extension NavBarView {
     var backButton: some View {
-        Button(action: { backAction?() }) {
+        Button { backAction?() } label: {
             Image(systemName: "chevron.left")
                 .resizable()
                 .scaledToFit()

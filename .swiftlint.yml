@@ -1,0 +1,24 @@
+disabled_rules:
+  - trailing_whitespace
+
+opt_in_rules:
+  - force_unwrapping
+  - force_try
+  - implicitly_unwrapped_optional
+  - explicit_init
+  - redundant_nil_coalescing
+  - redundant_type_annotation
+  - todo
+  - cyclomatic_complexity
+  - function_body_length
+  - type_body_length
+  - file_length
+analyzer_rules:
+  - unused_import
+  - unused_declaration
+excluded:
+  - Pods
+  - Carthage
+  - DerivedData
+
+line_length: 120

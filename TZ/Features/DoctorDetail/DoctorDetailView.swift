@@ -91,9 +91,11 @@ private extension DoctorDetailView {
     }
     
     var descriptionSection: some View {
+        // swiftlint:disable line_length
         Text("""
 Проводит диагностику и лечение терапевтических больных. Осуществляет расшифровку и снятие ЭКГ. Даёт рекомендации по диетологии. Доктор имеет опыт работы в России и зарубежом. Проводит консультации пациентов на английском языке.
 """)
+        // swiftlint:enable line_length
         .font(.system(size: 16))
         .foregroundColor(.appTextPrimary)
         .frame(maxWidth: .infinity, alignment: .leading)
