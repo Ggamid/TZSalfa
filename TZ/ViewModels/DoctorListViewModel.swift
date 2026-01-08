@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-
-class DoctorListViewModel: ObservableObject {
-    @Published var doctors: [Doctor] = []
-    @Published var filter: DoctorFilter = .priceAsc
-    @Published var searchText: String = ""
+@Observable
+class DoctorListViewModel {
+    var doctors: [Doctor] = []
+    var filter: DoctorFilter = .priceAsc
+    var searchText: String = ""
     
     private let networkService: NetworkServiceProtocol
     
