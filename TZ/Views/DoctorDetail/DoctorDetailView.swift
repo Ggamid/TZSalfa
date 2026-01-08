@@ -79,11 +79,15 @@ private extension DoctorDetailView {
     }
     
     var priceCard: some View {
-        PriceCardView(
-            leftText: "Стоимость услуг",
-            rightText: "от \(doctor.minServicePrice) ₽",
-            style: .summary
-        )
+        NavigationLink {
+            PricesView(doctor: doctor)
+        } label: {
+            PriceCardView(
+                leftText: "Стоимость услуг",
+                rightText: "от \(doctor.minServicePrice) ₽",
+                style: .summary
+            )
+        }
     }
     
     var descriptionSection: some View {

@@ -68,6 +68,7 @@ private extension DoctorListCellView {
         Text("\(doctor.doctorSpecializations) · стаж \(doctor.seniority) лет")
             .font(.system(size: 14))
             .foregroundColor(.appTextSecondary)
+            .multilineTextAlignment(.leading)
     }
     
     var priceView: some View {
