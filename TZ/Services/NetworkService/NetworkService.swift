@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetworkService: NetworkServiceProtocol {
+final class NetworkService: NetworkServiceProtocol {
     func loadJSONFromBundle<T: Decodable>(_ filename: String, as type: T.Type) -> T? {
         
         guard let url = Bundle.main.url(forResource: filename, withExtension: "json") else {

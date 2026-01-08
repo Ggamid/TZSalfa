@@ -52,7 +52,7 @@ struct DoctorListView: View {
         .scrollIndicators(.hidden)
         .frame(maxHeight: .infinity)
         .onAppear {
-            viewModel.getDoctorList()
+            viewModel.loadDoctors()
         }
     }    
     
