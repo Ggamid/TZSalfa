@@ -18,11 +18,21 @@ struct DoctorDetailView: View {
             content
         }
         .navigationBarBackButtonHidden(true)
+        .simultaneousGesture(edgeSwipeGesture)
     }
 }
 
 private extension DoctorDetailView {
-    
+    var edgeSwipeGesture: some Gesture {
+        DragGesture(minimumDistance: 20, coordinateSpace: .local)
+            .onEnded { value in
+                guard value.startLocation.x < 24 else { return }
+                guard value.translation.width > 80 else { return }
+                guard abs(value.translation.height) < 40 else { return }
+                dismiss()
+            }
+    }
+
     var content: some View {
         VStack(spacing: 0) {
             doctorDescription
