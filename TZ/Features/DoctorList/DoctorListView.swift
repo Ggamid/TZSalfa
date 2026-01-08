@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DoctorListView: View {
     
-    @State var viewModel: DoctorListViewModel = DoctorListViewModel()
+    @State var viewModel = DoctorListViewModel()
     
     var body: some View {
         NavigationStack {
@@ -52,7 +52,7 @@ struct DoctorListView: View {
         .scrollIndicators(.hidden)
         .frame(maxHeight: .infinity)
         .onAppear {
-            viewModel.getDoctorList()
+            viewModel.loadDoctors()
         }
     }    
     

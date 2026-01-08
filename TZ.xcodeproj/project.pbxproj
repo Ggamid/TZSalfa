@@ -52,6 +52,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 87C916742F0C6B5600942787 /* Build configuration list for PBXNativeTarget "TZ" */;
 			buildPhases = (
+				8767A8C82F0FE31A0040ECBE /* ShellScript */,
 				87C916622F0C6B5400942787 /* Sources */,
 				87C916632F0C6B5400942787 /* Frameworks */,
 				87C916642F0C6B5400942787 /* Resources */,
@@ -113,6 +114,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8767A8C82F0FE31A0040ECBE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"/opt/homebrew/bin:$PATH\"\ncd \"$SRCROOT\"\n\nif command -v swiftlint >/dev/null 2>&1; then\n  swiftlint --config \"$SRCROOT/.swiftlint.yml\"\nelse\n  echo \"warning: SwiftLint not installed. Install with: brew install swiftlint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		87C916622F0C6B5400942787 /* Sources */ = {
@@ -254,6 +276,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"TZ/Preview Content\"";
 				DEVELOPMENT_TEAM = 5TA9PLMD6F;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -283,6 +306,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"TZ/Preview Content\"";
 				DEVELOPMENT_TEAM = 5TA9PLMD6F;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

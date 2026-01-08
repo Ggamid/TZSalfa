@@ -60,7 +60,7 @@ private extension RatingView {
         let star: StarType
 
         switch value {
-        case let x where x >= 1:
+        case let xVar where xVar >= 1:
             star = .full
         default:
             star = .empty

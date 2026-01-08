@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+
 @Observable
-class DoctorListViewModel {
-    var doctors: [Doctor] = []
+final class DoctorListViewModel {
+    private(set) var doctors: [Doctor] = []
     var filter: DoctorFilter = .priceAsc
     var searchText: String = ""
     
-    private let networkService: NetworkServiceProtocol
+    private let repository: DoctorRepositoryProtocol
     
-    init(networkService: NetworkServiceProtocol = NetworkService()) {
-        self.networkService = networkService
+    init(repository: DoctorRepositoryProtocol = DoctorRepository()) {
+        self.repository = repository
     }
     
     var filteredList: [Doctor] {
@@ -23,10 +24,8 @@ class DoctorListViewModel {
         return sort(searched, by: filter)
     }
     
-    func getDoctorList() {
-        if let doctorResponse = networkService.loadJSONFromBundle("doctor", as: DoctorsResponse.self) {
-            self.doctors = doctorResponse.data.users
-        }
+    func loadDoctors() {
+        doctors = repository.fetchDoctors()
     }
 }
 
