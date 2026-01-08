@@ -27,18 +27,7 @@ private extension FilterView {
             }
         }
         .frame(height: 32)
-        .background(
-            background
-        )
-    }
-    
-    var background: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .stroke(Color.appCardBorder, lineWidth: 1)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.appCardBackground)
-            )
+        .roundedBorder()
     }
 
     @ViewBuilder

@@ -22,12 +22,7 @@ struct DoctorListCellView: View {
             PrimaryButton(title: buttonTitle, isEnabled: hasSchedule) { }
         }
         .padding(16)
-        .background(Color.appCardBackground)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.appCardBorder, lineWidth: 1)
-        )
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .roundedBorder()
     }
 }
 

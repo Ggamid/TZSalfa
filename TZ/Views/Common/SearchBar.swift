@@ -24,12 +24,7 @@ private extension SearchBar {
         }
         .padding(.horizontal, 16)
         .frame(height: 40)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.gray.opacity(0.25), lineWidth: 2)
-                .background(Color.white)
-        )
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .roundedBorder()
     }
 
     var icon: some View {
