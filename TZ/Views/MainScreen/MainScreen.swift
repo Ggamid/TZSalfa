@@ -16,12 +16,8 @@ struct MainScreen: View {
             switch appTab {
             case .home:
                 DoctorListView()
-            case .calendar:
-                EmptyView()
-            case .chat:
-                EmptyView()
-            case .profile:
-                EmptyView()
+            default:
+                Spacer()
             }
             
             TabBarView(selected: $appTab)

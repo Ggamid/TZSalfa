@@ -18,6 +18,7 @@ struct DoctorListView: View {
                 content
             }
             .toolbar(.hidden)
+            .background(Color.appBackground)
         }
     }
     

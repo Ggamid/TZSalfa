@@ -15,35 +15,40 @@ struct NavBarView: View {
     var body: some View {
         HStack {
             if showBack {
-                Button(action: { backAction?() }) {
-                    Image(systemName: "chevron.left")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 10, height: 18)
-                        .foregroundColor(.appTextSecondary)
-                }
-                .buttonStyle(.plain)
+                backButton
             } else {
-                // keep spacing aligned
                 Spacer()
                     .frame(width: 24)
             }
 
-            Spacer()
+            navTitle
 
-            Text(title)
-                .font(.system(size: 24, weight: .regular))
-                .foregroundColor(.appTextPrimary)
-
-            Spacer()
-
-            // placeholder for right side to keep centered title
             Spacer()
                 .frame(width: 24)
         }
         .padding(.horizontal, 16)
         .frame(height: 48)
         .background(Color.appBackground)
+    }
+}
+
+private extension NavBarView {
+    var backButton: some View {
+        Button(action: { backAction?() }) {
+            Image(systemName: "chevron.left")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 10, height: 18)
+                .foregroundColor(.appTextSecondary)
+        }
+        .buttonStyle(.plain)
+    }
+    
+    var navTitle: some View {
+        Text(title)
+            .frame(maxWidth: .infinity)
+            .font(.system(size: 24, weight: .regular))
+            .foregroundColor(.appTextPrimary)
     }
 }
 
