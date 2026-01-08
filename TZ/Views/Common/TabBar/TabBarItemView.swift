@@ -55,7 +55,12 @@ private extension TabBarItem {
                 .frame(width: 20, height: 20)
                 .background(Color.appPink)
                 .clipShape(Circle())
-                .offset(x: 10, y: -8)
+                .background {
+                    Circle()
+                        .foregroundStyle(.white)
+                        .scaleEffect(1.2)
+                }
+                .offset(x: 6, y: -4)
         }
     }
 

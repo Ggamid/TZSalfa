@@ -20,7 +20,7 @@ struct MainScreen: View {
                 Spacer()
             }
             
-            TabBarView(selected: $appTab)
+            TabBarView(selected: $appTab, chatBadge: 1)
         }
     }
 }

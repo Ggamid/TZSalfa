@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DoctorListView: View {
     
-    @StateObject var viewModel: DoctorListViewModel = DoctorListViewModel()
+    @State var viewModel: DoctorListViewModel = DoctorListViewModel()
     
     var body: some View {
         NavigationStack {
