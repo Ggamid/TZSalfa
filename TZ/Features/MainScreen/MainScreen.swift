@@ -9,17 +9,22 @@ import SwiftUI
 
 struct MainScreen: View {
     
-    @State var appTab: AppTab = .home
-    
+    @State private var appTab: AppTab = .home
+
     var body: some View {
-        VStack(spacing: 0) {
-            switch appTab {
-            case .home:
+        ZStack(alignment: .bottom) {
+            TabView(selection: $appTab) {
                 DoctorListView()
-            default:
-                Spacer()
+                    .tag(AppTab.home)
+                Text("Приёмы")
+                    .tag(AppTab.calendar)
+                Text("Чат")
+                    .tag(AppTab.chat)
+                Text("Профиль")
+                    .tag(AppTab.profile)
             }
-            
+            .toolbar(.hidden, for: .tabBar)
+
             TabBarView(selected: $appTab, chatBadge: 1)
         }
     }
