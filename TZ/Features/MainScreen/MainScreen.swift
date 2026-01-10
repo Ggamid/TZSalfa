@@ -15,27 +15,12 @@ struct MainScreen: View {
         ZStack(alignment: .bottom) {
             TabView(selection: $appTab) {
                 DoctorListView()
-                    .tabItem {
-                        Label(AppTab.home.title, image: AppTab.home.imageName)
-                    }
                     .tag(AppTab.home)
-
                 Text("Приёмы")
-                    .tabItem {
-                        Label(AppTab.calendar.title, image: AppTab.calendar.imageName)
-                    }
                     .tag(AppTab.calendar)
-
                 Text("Чат")
-                    .tabItem {
-                        Label(AppTab.chat.title, image: AppTab.chat.imageName)
-                    }
                     .tag(AppTab.chat)
-
                 Text("Профиль")
-                    .tabItem {
-                        Label(AppTab.profile.title, image: AppTab.profile.imageName)
-                    }
                     .tag(AppTab.profile)
             }
             .toolbar(.hidden, for: .tabBar)
@@ -43,7 +28,6 @@ struct MainScreen: View {
             TabBarView(selected: $appTab, chatBadge: 1)
         }
     }
-
 }
 
 #Preview {
